@@ -16,15 +16,12 @@ const chainMaker = {
   },
   removeLink(pos) {
     pos--;
-    try {
-      if ((pos > this.getLength() - 1) || (pos < 0) || (typeof pos != 'number') || (Math.ceil(pos) > pos)) {
-        throw new Error("You can\'t remove incorrect link!");
-      }
-      this.chain.splice(pos, 1);
-      return this;
-    } catch(e) {
+    if ((pos > this.getLength() - 1) || (pos < 0) || (Number.isNaN(pos))) {
       this.chain = [];
+      throw new Error('You can\'t remove incorrect link!');
     }
+    this.chain.splice(pos, 1);
+    return this;
   },
   reverseChain() {
     this.chain = this.chain.reverse();
@@ -40,3 +37,4 @@ const chainMaker = {
 module.exports = {
   chainMaker
 };
+
